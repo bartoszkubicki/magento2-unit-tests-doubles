@@ -103,6 +103,7 @@ class CustomAttributesDataStubTest extends TestCase
     public function testGetCustomAttributesCorrectlyReturnsValues(): void
     {
         $this->assertIsArray($this->customAttributesDataStub->getCustomAttributes());
+        $this->assertSame(['some_value'], $this->customAttributesDataStub->getCustomAttributes());
     }
 
     /**

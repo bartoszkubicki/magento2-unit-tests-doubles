@@ -93,13 +93,7 @@ abstract class AbstractRequestStub implements RequestInterface
      */
     public function getParam($key, $defaultValue = null)
     {
-        $keyName = (string) $key;
-
-        if (isset($this->params[$keyName])) {
-            return $this->params[$keyName];
-        }
-
-        return $defaultValue;
+        return $this->params[$key] ?? $defaultValue;
     }
 
     /**
@@ -127,12 +121,6 @@ abstract class AbstractRequestStub implements RequestInterface
      */
     public function getCookie($name, $default)
     {
-        $cookieName = (string) $name;
-
-        if (isset($this->cookies[$cookieName])) {
-            return $this->cookies[$cookieName];
-        }
-
-        return $default;
+        return $this->cookies[$name] ?? $default;
     }
 }

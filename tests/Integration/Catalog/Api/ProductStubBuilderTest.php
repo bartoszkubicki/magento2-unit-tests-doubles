@@ -24,6 +24,11 @@ use PHPUnit\Framework\TestCase;
 class ProductStubBuilderTest extends TestCase
 {
     /**
+     * @var string
+     */
+    private const VIRTUAL_PRODUCT_TYPE = 'virtual';
+
+    /**
      * @test
      * @return void
      */
@@ -77,5 +82,29 @@ class ProductStubBuilderTest extends TestCase
         );
 
         $this->assertEmpty($productStub->getMediaGalleryEntries());
+    }
+
+    /**
+     * @test
+     * @return void
+     * @SuppressWarnings(PHPMD.LongVariable)
+     */
+    public function testIfBuilderIsReusable(): void
+    {
+
+        $virtualProductBuilder = ProductStubBuilder::productStub()->withData(['type_id' => self::VIRTUAL_PRODUCT_TYPE]);
+
+        $disabledProduct = $virtualProductBuilder->withData(['status' => Status::STATUS_DISABLED])->build();
+        $this->assertSame(Status::STATUS_DISABLED, $disabledProduct->getStatus());
+
+        $hiddenProduct = $virtualProductBuilder->withData(['visibility' => Visibility::VISIBILITY_NOT_VISIBLE])
+            ->build();
+
+        $this->assertSame(Visibility::VISIBILITY_NOT_VISIBLE, $hiddenProduct->getVisibility());
+        $visibleAndEnabledProduct = $virtualProductBuilder->build();
+
+        $this->assertSame(self::VIRTUAL_PRODUCT_TYPE, $visibleAndEnabledProduct->getTypeId());
+        $this->assertSame(Visibility::VISIBILITY_BOTH, $visibleAndEnabledProduct->getVisibility());
+        $this->assertSame(Status::STATUS_ENABLED, $visibleAndEnabledProduct->getStatus());
     }
 }

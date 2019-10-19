@@ -9,7 +9,7 @@ declare(strict_types=1);
  * Github: https://github.com/bartoszkubicki
  */
 
-namespace BKubicki\Magento2TestDoubles\Customer\Api\CustomerRepository;
+namespace BKubicki\Magento2TestDoubles\Customer\Api;
 
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Framework\Exception\CouldNotDeleteException;
@@ -22,6 +22,7 @@ use Magento\Framework\Exception\State\InputMismatchException;
  * Class FailingCustomerRepositoryStub
  * @package BKubicki\Magento2TestDoubles\Customer\Api\CustomerRepository
  * @SuppressWarnings(PHPMD.LongVariable)
+ * @codeCoverageIgnore
  */
 class FailingCustomerRepositoryStub extends AbstractCustomerRepositoryStub
 {
@@ -41,11 +42,11 @@ class FailingCustomerRepositoryStub extends AbstractCustomerRepositoryStub
     private $exceptionClassForDeleteMethods;
 
     /**
-     * Successful constructor.
+     * FailingCustomerRepositoryStub constructor.
      * @param string $exceptionClassForSave
      * @param string $exceptionClassForGetMethods
      * @param string $exceptionClassForDeleteMethods
-     * @param CustomerInterface[]|null[] $customersList
+     * @param CustomerInterface|null ...$customersList
      * @SuppressWarnings(PHPMD.LongVariable)
      */
     public function __construct(

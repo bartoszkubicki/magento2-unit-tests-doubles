@@ -24,28 +24,22 @@ class AbstractRequestStubTestCase extends TestCase
      * @var array
      */
     protected $exampleParams = [
-        'test' => 'sth'
+        'test' => 'sth',
+        4 => 'sth_else'
     ];
 
     /**
      * @var array
      */
     protected $exampleCookies = [
-        'other' => 'ttt'
+        'other' => 'ttt',
+        3 => 'rr'
     ];
 
     /**
      * @var AbstractRequestStub
      */
     protected $requestStub;
-
-    /**
-     * @return void
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
 
     /**
      * @test
@@ -55,6 +49,7 @@ class AbstractRequestStubTestCase extends TestCase
     {
         $this->assertSame('sth', $this->requestStub->getParam('test'));
         $this->assertSame('ff', $this->requestStub->getParam('sth_other', 'ff'));
+        $this->assertSame('sth_else', $this->requestStub->getParam(4.00));
     }
 
     /**
@@ -76,5 +71,6 @@ class AbstractRequestStubTestCase extends TestCase
     {
         $this->assertSame('ttt', $this->requestStub->getCookie('other', 'aa'));
         $this->assertSame('ff', $this->requestStub->getCookie('sth_other', 'ff'));
+        $this->assertSame('rr', $this->requestStub->getCookie(3.00, 'f'));
     }
 }

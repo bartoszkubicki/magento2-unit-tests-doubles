@@ -45,19 +45,17 @@ class CustomAttributesDataStub extends DataObject implements CustomAttributesDat
      */
     public function getCustomAttribute($attributeCode) :?AttributeValue
     {
-        if (isset($this->_data[self::CUSTOM_ATTRIBUTES])
-            && isset($this->_data[self::CUSTOM_ATTRIBUTES][$attributeCode])) {
+        if (isset($this->_data[self::CUSTOM_ATTRIBUTES][$attributeCode])) {
             $value = $this->_data[self::CUSTOM_ATTRIBUTES][$attributeCode];
             if ($value instanceof AttributeValue) {
                 return $value;
-            } else {
-                $attributeValue = new AttributeValue();
-                return $attributeValue->setAttributeCode($attributeCode)
-                    ->setValue($value);
             }
-        } else {
-            return null;
+
+            $attributeValue = new AttributeValue();
+            return $attributeValue->setAttributeCode($attributeCode)->setValue($value);
         }
+
+        return null;
     }
 
     /**
@@ -67,7 +65,7 @@ class CustomAttributesDataStub extends DataObject implements CustomAttributesDat
      */
     public function setCustomAttribute($attributeCode, $attributeValue): self
     {
-        if (in_array($attributeCode, $this->customAttributesCodes)) {
+        if (in_array($attributeCode, $this->customAttributesCodes, true)) {
             $attributeValueObject = new AttributeValue();
             $attributeValueObject->setAttributeCode($attributeCode)->setValue($attributeValue);
             $this->_data[self::CUSTOM_ATTRIBUTES][$attributeCode] = $attributeValueObject;
@@ -91,7 +89,7 @@ class CustomAttributesDataStub extends DataObject implements CustomAttributesDat
     public function setCustomAttributes(array $attributes): self
     {
         foreach ($attributes as $attributeCode => $attributeValue) {
-            if (in_array($attributeCode, $this->customAttributesCodes)) {
+            if (in_array($attributeCode, $this->customAttributesCodes, true)) {
                 $attributeValueObject = new AttributeValue();
                 $attributeValueObject->setAttributeCode($attributeCode)->setValue($attributeValue);
                 $this->_data[self::CUSTOM_ATTRIBUTES][$attributeCode] = $attributeValueObject;

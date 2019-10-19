@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace BKubicki\Magento2TestDoubles\Customer\Api\Data;
 
+use function array_merge;
 use Magento\Customer\Api\Data\CustomerInterface;
 
 /**
@@ -24,7 +25,7 @@ class CustomerStubBuilder
     /**
      * @var array
      */
-    private $data = [];
+    private $data;
 
     /**
      * @var array
@@ -40,7 +41,18 @@ class CustomerStubBuilder
     /**
      * @var array
      */
-    private $customAttributesCodes = [];
+    private $customAttributesCodes;
+
+    /**
+     * CustomerStubBuilder constructor.
+     * @param array $data
+     * @param array $customAttributesCodes
+     */
+    public function __construct(array $data = [], array $customAttributesCodes = [])
+    {
+        $this->data = $data;
+        $this->customAttributesCodes = $customAttributesCodes;
+    }
 
     /**
      * @return CustomerStubBuilder
@@ -57,8 +69,9 @@ class CustomerStubBuilder
      */
     public function withId(int $id): self
     {
-        $this->data[CustomerInterface::ID] = $id;
-        return $this;
+        $builder = clone $this;
+        $builder->data[CustomerInterface::ID] = $id;
+        return $builder;
     }
 
     /**
@@ -67,8 +80,9 @@ class CustomerStubBuilder
      */
     public function withEmail(string $email): self
     {
-        $this->data[CustomerInterface::EMAIL] = $email;
-        return $this;
+        $builder = clone $this;
+        $builder->data[CustomerInterface::EMAIL] = $email;
+        return $builder;
     }
 
     /**
@@ -77,8 +91,9 @@ class CustomerStubBuilder
      */
     public function withData(array $data): self
     {
-        $this->data = array_merge($this->data, $data);
-        return $this;
+        $builder = clone $this;
+        $builder->data = array_merge($builder->data, $data);
+        return $builder;
     }
 
     /**
@@ -86,9 +101,10 @@ class CustomerStubBuilder
      */
     public function build(): CustomerStub
     {
+        $builder = clone $this;
         return new CustomerStub(
-            array_merge($this->defaultData, $this->data),
-            $this->customAttributesCodes
+            array_merge($builder->defaultData, $builder->data),
+            $builder->customAttributesCodes
         );
     }
 }

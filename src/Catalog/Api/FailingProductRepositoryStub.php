@@ -21,6 +21,7 @@ use Magento\Framework\Exception\StateException;
  * Class FailingProductRepositoryStub
  * @package BKubicki\Magento2TestDoubles\Catalog\Api\ProductRepository
  * @SuppressWarnings(PHPMD.LongVariable)
+ * @codeCoverageIgnore
  */
 class FailingProductRepositoryStub extends AbstractProductRepositoryStub
 {
@@ -35,7 +36,7 @@ class FailingProductRepositoryStub extends AbstractProductRepositoryStub
     private $exceptionClassForDeleteById;
 
     /**
-     * ThrowingException constructor.
+     * FailingProductRepositoryStub constructor.
      * @param string $exceptionClassForSave
      * @param string $exceptionClassForDeleteById
      * @param ProductInterface|null ...$productsLoaded
