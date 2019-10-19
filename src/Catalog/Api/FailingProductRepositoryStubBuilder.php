@@ -28,17 +28,34 @@ class FailingProductRepositoryStubBuilder
     /**
      * @var string
      */
-    private $exceptionClassForSave = CouldNotSaveException::class;
+    private $exceptionClassForSave;
 
     /**
      * @var string
      */
-    private $exceptionClassForDeleteById  = StateException::class;
+    private $exceptionClassForDeleteById;
 
     /**
-     * @var ProductInterface[]|null[]
+     * @var ProductInterface[]
      */
-    private $productsListLoaded = [];
+    private $productsListLoaded;
+
+    /**
+     * FailingProductRepositoryStubBuilder constructor.
+     * @param string $exceptionClassForSave
+     * @param string $exceptionClassForDeleteById
+     * @param ProductInterface|null ...$productsLoaded
+     * @SuppressWarnings(PHPMD.LongVariable)
+     */
+    public function __construct(
+        string $exceptionClassForSave = CouldNotSaveException::class,
+        string $exceptionClassForDeleteById = StateException::class,
+        ?ProductInterface ...$productsLoaded
+    ) {
+        $this->exceptionClassForSave = $exceptionClassForSave;
+        $this->exceptionClassForDeleteById = $exceptionClassForDeleteById;
+        $this->productsListLoaded = $productsLoaded;
+    }
 
     /**
      * @return FailingProductRepositoryStubBuilder
@@ -53,8 +70,9 @@ class FailingProductRepositoryStubBuilder
      */
     public function shouldSaveThrowInputException(): self
     {
-        $this->exceptionClassForSave = InputException::class;
-        return $this;
+        $builder = clone $this;
+        $builder->exceptionClassForSave = InputException::class;
+        return $builder;
     }
 
     /**
@@ -62,8 +80,9 @@ class FailingProductRepositoryStubBuilder
      */
     public function shouldSaveThrowStateException(): self
     {
-        $this->exceptionClassForSave = StateException::class;
-        return $this;
+        $builder = clone $this;
+        $builder->exceptionClassForSave = StateException::class;
+        return $builder;
     }
 
 
@@ -72,8 +91,9 @@ class FailingProductRepositoryStubBuilder
      */
     public function shouldSaveThrowCouldNotSaveException(): self
     {
-        $this->exceptionClassForSave = CouldNotSaveException::class;
-        return $this;
+        $builder = clone $this;
+        $builder->exceptionClassForSave = CouldNotSaveException::class;
+        return $builder;
     }
 
     /**
@@ -81,8 +101,9 @@ class FailingProductRepositoryStubBuilder
      */
     public function shouldDeleteByIdThrowNoSuchEntityException(): self
     {
-        $this->exceptionClassForDeleteById = NoSuchEntityException::class;
-        return $this;
+        $builder = clone $this;
+        $builder->exceptionClassForDeleteById = NoSuchEntityException::class;
+        return $builder;
     }
 
     /**
@@ -90,8 +111,9 @@ class FailingProductRepositoryStubBuilder
      */
     public function shouldDeleteBeIdThrowStateException(): self
     {
-        $this->exceptionClassForDeleteById = StateException::class;
-        return $this;
+        $builder = clone $this;
+        $builder->exceptionClassForDeleteById = StateException::class;
+        return $builder;
     }
 
     /**
@@ -100,8 +122,9 @@ class FailingProductRepositoryStubBuilder
      */
     public function withProductsListLoaded(ProductInterface ...$productListLoaded): self
     {
-        $this->productsListLoaded = $productListLoaded;
-        return $this;
+        $builder = clone $this;
+        $builder->productsListLoaded = $productListLoaded;
+        return $builder;
     }
 
     /**
@@ -109,10 +132,11 @@ class FailingProductRepositoryStubBuilder
      */
     public function build(): FailingProductRepositoryStub
     {
+        $builder = clone $this;
         return new FailingProductRepositoryStub(
-            $this->exceptionClassForSave,
-            $this->exceptionClassForDeleteById,
-            ... $this->productsListLoaded
+            $builder->exceptionClassForSave,
+            $builder->exceptionClassForDeleteById,
+            ... $builder->productsListLoaded
         );
     }
 }

@@ -37,11 +37,11 @@ class FailingProductRepositoryStubBuilderTest extends TestCase
      */
     public function testBuildingFailingProductRepositoryStub(): void
     {
-        $failingProductRepositoryStubBuilder = FailingProductRepositoryStubBuilder::productRepositoryStub();
-        $failingProductRepositoryStubBuilder->withProductsListLoaded(new ProductStub(), new ProductStub());
-        $failingProductRepositoryStubBuilder->shouldSaveThrowInputException();
-        $failingProductRepositoryStubBuilder->shouldDeleteByIdThrowNoSuchEntityException();
-        $failingProductRepositoryStub = $failingProductRepositoryStubBuilder->build();
+        $failingProductRepositoryStub = FailingProductRepositoryStubBuilder::productRepositoryStub()
+            ->withProductsListLoaded(new ProductStub(), new ProductStub())
+            ->shouldSaveThrowInputException()
+            ->shouldDeleteByIdThrowNoSuchEntityException()
+            ->build();
 
         $this->assertCount(2, $failingProductRepositoryStub->getList(new SearchCriteria())->getItems());
         $this->expectException(InputException::class);
@@ -58,5 +58,26 @@ class FailingProductRepositoryStubBuilderTest extends TestCase
 
         $this->expectException(StateException::class);
         $failingProductRepositoryStub->delete(new ProductStub());
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws CouldNotSaveException
+     * @throws InputException
+     * @throws StateException
+     */
+    public function testIfBuilderIsReusable(): void
+    {
+        $failingProductRepositoryStubBuilder = FailingProductRepositoryStubBuilder::productRepositoryStub();
+        $productRepositoryStubThrowingInputException = $failingProductRepositoryStubBuilder
+            ->shouldSaveThrowInputException()->build();
+        $this->expectException(InputException::class);
+        $productRepositoryStubThrowingInputException->save(new ProductStub());
+
+        $productRepositoryStubThrowingCouldNotSaveExceptionException = $failingProductRepositoryStubBuilder
+            ->shouldSaveThrowCouldNotSaveException()->build();
+        $this->expectException(CouldNotSaveException::class);
+        $productRepositoryStubThrowingCouldNotSaveExceptionException->save(new ProductStub());
     }
 }

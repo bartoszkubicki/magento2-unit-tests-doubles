@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace BKubicki\Magento2TestDoubles\Catalog\Api\Data;
 
+use function array_merge;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Catalog\Model\Product\Attribute\Source\Status;
 use Magento\Catalog\Model\Product\Visibility;
@@ -26,7 +27,7 @@ class ProductStubBuilder
     /**
      * @var array
      */
-    private $data = [];
+    private $data;
 
     /**
      * @var array
@@ -46,22 +47,44 @@ class ProductStubBuilder
     /**
      * @var array
      */
-    private $customAttributesCodes = [];
+    private $customAttributesCodes;
 
     /**
      * @var array
      */
-    private $links = [];
+    private $links;
 
     /**
      * @var array
      */
-    private $mediaGalleryEntries = [];
+    private $mediaGalleryEntries;
 
     /**
      * @var array
      */
-    private $tierPrices = [];
+    private $tierPrices;
+
+    /**
+     * ProductStubBuilder constructor.
+     * @param array $data
+     * @param array $customAttributesCodes
+     * @param array $links
+     * @param array $mediaGalleryEntries
+     * @param array $tierPrices
+     */
+    public function __construct(
+        array $data = [],
+        array $customAttributesCodes = [],
+        array $links = [],
+        array $mediaGalleryEntries = [],
+        array $tierPrices = []
+    ) {
+        $this->data = $data;
+        $this->customAttributesCodes = $customAttributesCodes;
+        $this->links = $links;
+        $this->mediaGalleryEntries = $mediaGalleryEntries;
+        $this->tierPrices = $tierPrices;
+    }
 
     /**
      * @return ProductStubBuilder
@@ -77,8 +100,9 @@ class ProductStubBuilder
      */
     public function withData(array $data): self
     {
-        $this->data = array_merge($this->data, $data);
-        return $this;
+        $builder = clone $this;
+        $builder->data = array_merge($builder->data, $data);
+        return $builder;
     }
 
     /**
@@ -88,8 +112,9 @@ class ProductStubBuilder
      */
     public function withId(int $id): self
     {
-        $this->data['entity_id'] = $id;
-        return $this;
+        $builder = clone $this;
+        $builder->data['entity_id'] = $id;
+        return $builder;
     }
 
     /**
@@ -98,8 +123,9 @@ class ProductStubBuilder
      */
     public function withName(string $name): self
     {
-        $this->data[ProductInterface::NAME] = $name;
-        return $this;
+        $builder = clone $this;
+        $builder->data[ProductInterface::NAME] = $name;
+        return $builder;
     }
 
     /**
@@ -108,8 +134,9 @@ class ProductStubBuilder
      */
     public function withSku(string $sku): self
     {
-        $this->data[ProductInterface::SKU] = $sku;
-        return $this;
+        $builder = clone $this;
+        $builder->data[ProductInterface::SKU] = $sku;
+        return $builder;
     }
 
     /**
@@ -118,8 +145,9 @@ class ProductStubBuilder
      */
     public function withPrice(float $price): self
     {
-        $this->data[ProductInterface::PRICE] = $price;
-        return $this;
+        $builder = clone $this;
+        $builder->data[ProductInterface::PRICE] = $price;
+        return $builder;
     }
 
     /**
@@ -128,8 +156,9 @@ class ProductStubBuilder
      */
     public function withCustomAttributesCodes(array $codes): self
     {
-        $this->customAttributesCodes = $codes;
-        return $this;
+        $builder = clone $this;
+        $builder->customAttributesCodes = $codes;
+        return $builder;
     }
 
     /**
@@ -138,8 +167,9 @@ class ProductStubBuilder
      */
     public function withLinks(array $links): self
     {
-        $this->links = $links;
-        return $this;
+        $builder = clone $this;
+        $builder->links = $links;
+        return $builder;
     }
 
     /**
@@ -148,8 +178,9 @@ class ProductStubBuilder
      */
     public function withMediaGalleryEntries(array $entries): self
     {
-        $this->mediaGalleryEntries = $entries;
-        return $this;
+        $builder = clone $this;
+        $builder->mediaGalleryEntries = $entries;
+        return $builder;
     }
 
     /**
@@ -158,8 +189,9 @@ class ProductStubBuilder
      */
     public function withTierPrices(array $tierPrices): self
     {
-        $this->tierPrices = $tierPrices;
-        return $this;
+        $builder = clone $this;
+        $builder->tierPrices = $tierPrices;
+        return $builder;
     }
 
     /**
@@ -167,12 +199,13 @@ class ProductStubBuilder
      */
     public function build(): ProductStub
     {
+        $builder = clone $this;
         return new ProductStub(
-            array_merge($this->defaultData, $this->data),
-            $this->customAttributesCodes,
-            $this->links,
-            $this->mediaGalleryEntries,
-            $this->tierPrices
+            array_merge($builder->defaultData, $builder->data),
+            $builder->customAttributesCodes,
+            $builder->links,
+            $builder->mediaGalleryEntries,
+            $builder->tierPrices
         );
     }
 }

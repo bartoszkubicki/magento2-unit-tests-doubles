@@ -9,13 +9,14 @@ declare(strict_types=1);
  * Github: https://github.com/bartoszkubicki
  */
 
-namespace BKubicki\Magento2TestDoubles\Customer\Api\CustomerRepository;
+namespace BKubicki\Magento2TestDoubles\Customer\Api;
 
 use Magento\Customer\Api\Data\CustomerInterface;
 
 /**
  * Class SuccessfulStub
- * @package BKubicki\Magento2TestDoubles\Customer\Api\CustomerRepository
+ * @package BKubicki\Magento2TestDoubles\Customer\Api
+ * @codeCoverageIgnore
  */
 class SuccessfulCustomerRepositoryStub extends AbstractCustomerRepositoryStub
 {
@@ -29,7 +30,7 @@ class SuccessfulCustomerRepositoryStub extends AbstractCustomerRepositoryStub
      * @param CustomerInterface $customerLoaded
      * @param CustomerInterface[]|null[] $customersListLoaded
      */
-    public function __construct(CustomerInterface $customerLoaded, ?CustomerInterface ... $customersListLoaded)
+    public function __construct(CustomerInterface $customerLoaded, ?CustomerInterface ...$customersListLoaded)
     {
         parent::__construct(... $customersListLoaded);
         $this->customerLoaded = $customerLoaded;

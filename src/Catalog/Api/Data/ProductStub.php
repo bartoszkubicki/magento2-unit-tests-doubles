@@ -151,9 +151,9 @@ class ProductStub extends CustomAttributesDataStub implements ProductInterface
     }
 
     /**
-     * @return string|null
+     * @return int|null
      */
-    public function getStatus(): ?string
+    public function getStatus(): ?int
     {
         return $this->getData(self::STATUS);
     }

@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace BKubicki\Magento2TestDoubles\Integration\Customer;
 
-use BKubicki\Magento2TestDoubles\Customer\Api\CustomerRepository\FailingCustomerRepositoryStubBuilder;
 use BKubicki\Magento2TestDoubles\Customer\Api\Data\CustomerStub;
+use BKubicki\Magento2TestDoubles\Customer\Api\FailingCustomerRepositoryStubBuilder;
 use Magento\Framework\Api\SearchCriteria;
 use Magento\Framework\Exception\CouldNotDeleteException;
 use Magento\Framework\Exception\InputException;
@@ -38,17 +38,15 @@ class FailingCustomerRepositoryStubBuilderTest extends TestCase
      */
     public function testBuildingFailingCustomerRepositoryStub(): void
     {
-        $customerRepositoryStubBuilder = FailingCustomerRepositoryStubBuilder::customerRepository();
-        $customerRepositoryStubBuilder->shouldSaveThrowInputException();
-        $customerRepositoryStubBuilder->shouldGetMethodsThrowLocalizedException();
-        $customerRepositoryStubBuilder->shouldDeleteMethodsThrowNoSuchEntityException();
-        $customerRepositoryStubBuilder->withCustomersListLoaded(
-            new CustomerStub(),
-            new CustomerStub(),
-            new CustomerStub()
-        );
-
-        $customerRepositoryStub = $customerRepositoryStubBuilder->build();
+        $customerRepositoryStub = FailingCustomerRepositoryStubBuilder::customerRepositoryStub()
+            ->shouldSaveThrowInputException()
+            ->shouldGetMethodsThrowLocalizedException()
+            ->shouldDeleteMethodsThrowNoSuchEntityException()
+            ->withCustomersListLoaded(
+                new CustomerStub(),
+                new CustomerStub(),
+                new CustomerStub()
+            )->build();
 
         $this->assertCount(3, $customerRepositoryStub->getList(new SearchCriteria())->getItems());
 
@@ -76,8 +74,7 @@ class FailingCustomerRepositoryStubBuilderTest extends TestCase
      */
     public function testBuildingFailingCustomerRepositoryStubWithDefaultValues(): void
     {
-        $customerRepositoryStubBuilder = FailingCustomerRepositoryStubBuilder::customerRepository();
-        $customerRepositoryStub = $customerRepositoryStubBuilder->build();
+        $customerRepositoryStub = FailingCustomerRepositoryStubBuilder::customerRepositoryStub()->build();
 
         $this->expectException(LocalizedException::class);
         $customerRepositoryStub->save(new CustomerStub());
@@ -87,5 +84,27 @@ class FailingCustomerRepositoryStubBuilderTest extends TestCase
 
         $this->expectException(CouldNotDeleteException::class);
         $customerRepositoryStub->deleteById(3);
+    }
+
+    /**
+     * @test
+     * @return void
+     * @throws InputException
+     * @throws InputMismatchException
+     * @throws LocalizedException
+     * @SuppressWarnings(PHPMD.LongVariable)
+     */
+    public function testIfBuilderIsReusable(): void
+    {
+        $failingCustomerRepositoryStubBuilder = FailingCustomerRepositoryStubBuilder::customerRepositoryStub();
+        $customerRepositoryStubThrowingInputException = $failingCustomerRepositoryStubBuilder
+            ->shouldSaveThrowInputException()->build();
+        $this->expectException(InputException::class);
+        $customerRepositoryStubThrowingInputException->save(new CustomerStub());
+
+        $customerRepositoryStubThrowingCouldNotSaveExceptionException = $failingCustomerRepositoryStubBuilder
+            ->shouldSaveThrowInputMismatchException()->build();
+        $this->expectException(InputMismatchException::class);
+        $customerRepositoryStubThrowingCouldNotSaveExceptionException->save(new CustomerStub());
     }
 }

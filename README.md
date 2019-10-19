@@ -3,7 +3,9 @@
 ## Overview
 Library provides useful doubles of different kinds for unit testing of Magento 2.3+. Some of doubles can be created using
 dedicated builders, which helps in configuring desired behavior of doubles.
-By using these doubles you can get rid of over-mocking in unit tests and time spent on writing unit should decrease.
+By using these doubles you can get rid of over-mocking in unit tests and time spent on writing unit should decrease. 
+It is can be achieved because of the fact that all doubles inherits or implements replaced object or interface,
+so type consistency is preserved. Examples in [here](EXAMPLES.md).
 
 ## Prerequisites
 PHP 7.2
@@ -29,7 +31,7 @@ To install the extension use the following commands:
 ### Integration
 1. Run command 
 ```
-./vendor/bin/phpunit --colors phpunit.xml --testsuite "Integration"
+./vendor/bin/phpunit -c phpunit.xml --testsuite "Integration"
 ```
 
 2.You can also use alias:
@@ -47,7 +49,7 @@ To install the extension use the following commands:
     ```
 3. Run:    
     ```
-    ./vendor/bin/infection --coverage=coverage
+    ./vendor/bin/infection --coverage=coverage --only-covered --show-mutations
     ```
     
 5. By default, detailed report from mutations is available in ```var/log/dev/infection.log```.

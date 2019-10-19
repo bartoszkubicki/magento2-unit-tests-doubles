@@ -16,6 +16,7 @@ use Magento\Catalog\Api\Data\ProductInterface;
 /**
  * Class SuccessfulProductRepositoryStub
  * @package BKubicki\Magento2TestDoubles\Stub\Catalog\Api\ProductRepository
+ * @codeCoverageIgnore
  */
 class SuccessfulProductRepositoryStub extends AbstractProductRepositoryStub
 {

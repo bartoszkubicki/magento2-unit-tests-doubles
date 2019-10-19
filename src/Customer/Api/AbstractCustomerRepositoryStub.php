@@ -9,7 +9,7 @@ declare(strict_types=1);
  * Github: https://github.com/bartoszkubicki
  */
 
-namespace BKubicki\Magento2TestDoubles\Customer\Api\CustomerRepository;
+namespace BKubicki\Magento2TestDoubles\Customer\Api;
 
 use BKubicki\Magento2TestDoubles\Framework\Api\SearchResultsStub;
 use Magento\Customer\Api\CustomerRepositoryInterface;
@@ -18,7 +18,7 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 
 /**
  * Class AbstractStub
- * @package BKubicki\Magento2TestDoubles\Customer\Api\CustomerRepository
+ * @package BKubicki\Magento2TestDoubles\Customer\Api
  */
 abstract class AbstractCustomerRepositoryStub implements CustomerRepositoryInterface
 {
