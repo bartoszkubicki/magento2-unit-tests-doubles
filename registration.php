@@ -9,7 +9,6 @@ declare(strict_types=1);
  * Github: https://github.com/bartoszkubicki
  */
 
-
 use Magento\Framework\Component\ComponentRegistrar;
 
 ComponentRegistrar::register(
