@@ -1,5 +1,6 @@
 # BKubicki Magento 2 Unit Tests Doubles
 
+
 ## Overview
 Library provides useful doubles of different kinds for unit testing of Magento 2.3+. Some of doubles can be created using
 dedicated builders, which helps in configuring desired behavior of doubles.
@@ -7,8 +8,10 @@ By using these doubles you can get rid of over-mocking in unit tests and time sp
 It is can be achieved because of the fact that all doubles inherits or implements replaced object or interface,
 so type consistency is preserved. Examples in [here](EXAMPLES.md).
 
+
 ## Prerequisites
-PHP 7.2
+* PHP 7.2
+
 
 ## Installation ###
 
@@ -17,25 +20,30 @@ To install the extension use the following commands:
 ```bash
  composer require bkubicki/magento2-unit-tests-doubles
  ```
+ 
+
 ## Tests ##
+
 
 ### Unit ###
 1. Run command
 ```
-./vendor/bin/phpunit --colors phpunit.xml --testsuite "Unit" --coverage-html coverage/coverage-html
+./vendor/bin/phpunit -c phpunit.xml --testsuite "Unit" --coverage-html coverage/coverage-html --colors=always
 ```
 
 2. You can also use some alias:
-  - `test-unit-coverage` - _`vendor/bin/phpunit -c phpunit.xml --testsuite 'Unit' --coverage-html coverage/coverage-html --colors=always`_
+  - `test-unit-coverage` - _`vendor/bin/phpunit -c phpunit.xml --testsuite "Unit" --coverage-html coverage/coverage-html --colors=always`_
+
   
 ### Integration
 1. Run command 
 ```
-./vendor/bin/phpunit -c phpunit.xml --testsuite "Integration"
+./vendor/bin/phpunit -c phpunit.xml --testsuite "Integration" --colors=always
 ```
 
 2.You can also use alias:
     - `test-integration` - _`vendor/bin/phpunit -c phpunit.xml --testsuite 'Integration' --colors=always`_
+
     
 ### Infection tests ###
 
@@ -63,6 +71,11 @@ To install the extension use the following commands:
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/bartoszkubicki/background-process-screen/tags).
 
 
+## Changelog
+
+See changelog [here](CHANGELOG.md).
+
+
 ## Authors
 
 * [Bartosz Kubicki](https://github.com/bartoszkubicki)
@@ -70,4 +83,4 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
