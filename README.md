@@ -68,7 +68,7 @@ To install the extension use the following commands:
   
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/bartoszkubicki/background-process-screen/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/bartoszkubicki/magento2-unit-tests-doubles/tags).
 
 
 ## Changelog

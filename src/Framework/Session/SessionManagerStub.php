@@ -5,8 +5,8 @@ declare(strict_types=1);
 /**
  * File: SessionManagerStub.php
  *
- * @author Bartosz Kubicki bartosz.kubicki@lizardmedia.pl>
- * @copyright Copyright (C) 2019 Lizard Media (http://lizardmedia.pl)
+ * @author Bartosz Kubicki b.w.kubicki@gmail.com>
+ * Github: https://github.com/bartoszkubicki
  */
 
 namespace BKubicki\Magento2TestDoubles\Framework\Session;
