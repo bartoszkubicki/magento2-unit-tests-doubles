@@ -54,7 +54,7 @@ class FailingCustomerRepositoryStubBuilderTest extends TestCase
         $customerRepositoryStub->save(new CustomerStub());
 
         $this->expectException(LocalizedException::class);
-        $customerRepositoryStub->get('test@gmail');
+        $customerRepositoryStub->get('test@invalid');
 
         $this->expectException(LocalizedException::class);
         $customerRepositoryStub->getById(33);

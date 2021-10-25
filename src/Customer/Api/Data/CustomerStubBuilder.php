@@ -32,7 +32,7 @@ class CustomerStubBuilder
      */
     private $defaultData = [
         CustomerInterface::ID => 10,
-        CustomerInterface::EMAIL => 'test@gmail.com',
+        CustomerInterface::EMAIL => 'joe.doe@example.com',
         CustomerInterface::FIRSTNAME => 'Joe',
         CustomerInterface::LASTNAME => 'Doe',
         CustomerInterface::WEBSITE_ID => 1
