@@ -26,44 +26,50 @@ To install the extension use the following commands:
 
 
 ### Unit ###
-1. Run command
+Run command
+```
+composer test-unit-coverage
+```
+
+which is an alias for
 ```
 ./vendor/bin/phpunit -c phpunit.xml --testsuite "Unit" --coverage-html coverage/coverage-html --colors=always
 ```
 
-2. You can also use some alias:
-  - `test-unit-coverage` - _`vendor/bin/phpunit -c phpunit.xml --testsuite "Unit" --coverage-html coverage/coverage-html --colors=always`_
-
   
 ### Integration
-1. Run command 
+Run command 
+```
+composer test-integration
+```
+
+which is an alias for
 ```
 ./vendor/bin/phpunit -c phpunit.xml --testsuite "Integration" --colors=always
 ```
 
-2.You can also use alias:
-    - `test-integration` - _`vendor/bin/phpunit -c phpunit.xml --testsuite 'Integration' --colors=always`_
-
     
-### Infection tests ###
+### Mutation tests (using Infection) ###
 
 1. Infection tests requires xDebug enabled.
 
-2. Infection tests requires coverage generated in xml along with report.
-   Run unit tests with these parameters, from inside container: 
-    ```
-    ./vendor/bin/phpunit -c phpunit.xml --testsuite "Unit" --coverage-xml coverage/coverage-xml --log-junit coverage/phpunit.junit.xml
+2. Run command
+   ```
+   composer test-infection
+   ```
 
-    ```
-3. Run:    
-    ```
-    ./vendor/bin/infection --coverage=coverage --only-covered --show-mutations
-    ```
+    which does the following:
+    - Run PHPUnit tests and generate coverage in xml:
+      ```
+      ./vendor/bin/phpunit -c phpunit.xml --testsuite "Unit" --coverage-xml coverage/coverage-xml --log-junit coverage/phpunit.junit.xml
+      ```
+    - Run Infection mutation tests for covered code    
+      ```
+      ./vendor/bin/infection --coverage=coverage --only-covered --show-mutations
+      ```
     
-5. By default, detailed report from mutations is available in ```var/log/dev/infection.log```.
+3. Find detailed report from mutations in ```var/log/dev/infection.log```.
 
-6. You also can use alias, which does all job for you:
-    - `test-infection` - _`./scripts/tests/infection.sh`_
 
   
 ## Versioning
