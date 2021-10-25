@@ -29,7 +29,7 @@ class CustomerStubBuilderTest extends TestCase
     public function testBuildingCustomerStub(): void
     {
         $id = 56;
-        $email = 'test2@gmail.com';
+        $email = 'jan.kowalski@example.com';
         $firstName = 'Jan';
         $lastName = 'Kowalski';
 
@@ -51,7 +51,7 @@ class CustomerStubBuilderTest extends TestCase
         $customerStub = CustomerStubBuilder::customerStub()->withId($id)->build();
 
         $this->assertSame($id, $customerStub->getId());
-        $this->assertSame('test@gmail.com', $customerStub->getEmail());
+        $this->assertSame('joe.doe@example.com', $customerStub->getEmail());
         $this->assertSame('Joe', $customerStub->getFirstname());
         $this->assertSame('Doe', $customerStub->getLastname());
     }
@@ -66,7 +66,7 @@ class CustomerStubBuilderTest extends TestCase
         $customerStub = CustomerStubBuilder::customerStub()->build();
 
         $this->assertSame(10, $customerStub->getId());
-        $this->assertSame('test@gmail.com', $customerStub->getEmail());
+        $this->assertSame('joe.doe@example.com', $customerStub->getEmail());
         $this->assertSame('Joe', $customerStub->getFirstname());
         $this->assertSame('Doe', $customerStub->getLastname());
     }
@@ -78,8 +78,8 @@ class CustomerStubBuilderTest extends TestCase
      */
     public function testIfBuilderIsReusable(): void
     {
-        $exampleEmail1 = 'test4@gmail.com';
-        $exampleEmail2 = 'other@gmail.com';
+        $exampleEmail1 = 'first@example.com';
+        $exampleEmail2 = 'other@example.com';
         $exampleId = 17;
 
         $customerStubBuilder = CustomerStubBuilder::customerStub();
