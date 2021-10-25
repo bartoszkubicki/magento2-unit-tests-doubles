@@ -2,15 +2,15 @@
 
 
 ## Overview
-Library provides useful doubles of different kinds for unit testing of Magento 2.3+. Some of doubles can be created using
+Library provides useful doubles of different kinds for unit testing of Magento 2.3+. Some of the doubles can be created using
 dedicated builders, which helps in configuring desired behavior of doubles.
 By using these doubles you can get rid of over-mocking in unit tests and time spent on writing unit should decrease. 
-It is can be achieved because of the fact that all doubles inherits or implements replaced object or interface,
+It can be achieved because all doubles inherits or implements replaced object or interface,
 so type consistency is preserved. Examples in [here](EXAMPLES.md).
 
 
 ## Prerequisites
-* PHP 7.2
+* PHP ^7.4
 
 
 ## Installation ###
